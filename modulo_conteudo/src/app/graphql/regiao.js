@@ -6,9 +6,11 @@ import {
 	GraphQLNonNull,
 	GraphQLList,
 } from 'graphql';
-import { Regiao } from '../models';
 
-const RegiaoType = new GraphQLObjectType({
+import RegiaoController from '../controllers/RegiaoController';
+import ResponseType from './response';
+
+export const RegiaoType = new GraphQLObjectType({
 	name: 'RegiaoType',
 	description: '....',
 	fields: () => ({
@@ -18,22 +20,41 @@ const RegiaoType = new GraphQLObjectType({
 	}),
 });
 
-const RegiaoSchema = {
+export const RegiaoQuery = {
 	regiao: {
 		type: RegiaoType,
 		args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-		resolve: async (_, args) => {
-			const regiao = await Regiao.findOne({ id: args.id });
-			return regiao;
-		},
+		resolve: RegiaoController.getOne,
 	},
 	regioes: {
 		type: new GraphQLList(RegiaoType),
-		resolve: async () => {
-			const regiao = await Regiao.findAll();
-			return regiao;
-		},
+		resolve: RegiaoController.getAll,
 	},
 };
 
-export { RegiaoType, RegiaoSchema };
+export const RegiaoMutations = {
+	createRegiao: {
+		type: RegiaoType,
+		args: {
+			nome_regiao: { type: new GraphQLNonNull(GraphQLString) },
+			uf: { type: new GraphQLNonNull(GraphQLInt) },
+		},
+		resolve: RegiaoController.create,
+	},
+	updateRegiao: {
+		type: RegiaoType,
+		args: {
+			id: { type: new GraphQLNonNull(GraphQLID) },
+			nome_regiao: { type: GraphQLString },
+			uf: { type: GraphQLInt },
+		},
+		resolve: RegiaoController.update,
+	},
+	deleteRegiao: {
+		type: ResponseType,
+		args: {
+			id: { type: new GraphQLNonNull(GraphQLID) },
+		},
+		resolve: RegiaoController.delete,
+	},
+};

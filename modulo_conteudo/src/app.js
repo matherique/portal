@@ -14,7 +14,10 @@ class AppController {
 	middlewares() {
 		this.express.use(bodyParser.json());
 		this.express.use(
-			graphqlHttp({ schema, graphiql: !!process.env.GRAPHIQL || false })
+			graphqlHttp({
+				schema,
+				graphiql: !!process.env.GRAPHIQL || false,
+			})
 		);
 	}
 

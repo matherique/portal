@@ -1,16 +1,16 @@
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
-import { RegiaoSchema } from './regiao';
+import { RegiaoQuery, RegiaoMutations } from './regiao';
 
 const Query = new GraphQLObjectType({
 	name: 'QueryType',
 	description: '....',
-	fields: () => ({ ...RegiaoSchema }),
+	fields: () => ({ ...RegiaoQuery }),
 });
 
-// const Mutation = new GraphQLObjectType({
-// 	name: 'MutationType',
-// 	description: '....',
-// 	fields: () => ({}),
-// });
+const Mutation = new GraphQLObjectType({
+	name: 'MutationType',
+	description: '....',
+	fields: () => ({ ...RegiaoMutations }),
+});
 
-export default new GraphQLSchema({ query: Query });
+export default new GraphQLSchema({ query: Query, mutation: Mutation });
