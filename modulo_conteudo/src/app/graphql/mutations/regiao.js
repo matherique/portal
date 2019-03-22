@@ -2,7 +2,7 @@ import { GraphQLID, GraphQLInt, GraphQLString, GraphQLNonNull } from 'graphql';
 
 import RegiaoController from '../../controllers/RegiaoController';
 import ResponseType from '../types/response';
-import { RegiaoType } from '../types/regiao';
+import RegiaoType from '../types/regiao';
 
 export default {
 	createRegiao: {
