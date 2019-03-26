@@ -8,25 +8,26 @@ export default {
   createRegiao: {
     type: RegiaoType,
     args: {
+      id: { type: GraphQLID },
       nome_regiao: { type: new GraphQLNonNull(GraphQLString) },
       uf: { type: new GraphQLNonNull(GraphQLInt) },
     },
-    resolve: RegiaoController.create,
+    resolve: (_, args) => RegiaoController.create({ ...args }),
   },
   updateRegiao: {
-    type: RegiaoType,
+    type: ResponseType,
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) },
       nome_regiao: { type: GraphQLString },
       uf: { type: GraphQLInt },
     },
-    resolve: RegiaoController.update,
+    resolve: (_, args) => RegiaoController.update({ ...args }),
   },
   deleteRegiao: {
     type: ResponseType,
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) },
     },
-    resolve: RegiaoController.delete,
+    resolve: (_, { id }) => RegiaoController.delete(id),
   },
 };

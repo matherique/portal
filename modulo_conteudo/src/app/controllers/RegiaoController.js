@@ -6,19 +6,19 @@ class RegiaoController {
     return result;
   }
 
-  async getOne(_, { id }) {
+  async getOne(id) {
     const result = await Regiao.findOne({ id });
     return result;
   }
 
-  async create(_, args) {
-    const result = await Regiao.create({ ...args });
+  async create(dados) {
+    const result = await Regiao.create(dados);
     return result;
   }
 
-  async update(_, args) {
-    const { id } = args;
-    const result = await Regiao.update({ ...args }, { where: { id } });
+  async update(dados) {
+    const { id } = dados;
+    const result = await Regiao.update({ ...dados }, { where: { id } });
 
     if (result[0] === 0)
       return {
@@ -31,7 +31,7 @@ class RegiaoController {
     return { response: { ok: true } };
   }
 
-  async delete(_, { id }) {
+  async delete(id) {
     const result = await Regiao.destroy({ where: { id } });
     if (!result)
       return {

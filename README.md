@@ -7,5 +7,3 @@
 
 ### Tests
 - Testes no NodeJS aplicando TDD com Jest [link](https://www.youtube.com/watch?v=2G_mWfG0DZE)
-
- 

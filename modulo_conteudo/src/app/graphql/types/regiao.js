@@ -9,7 +9,7 @@ const RegiaoType = new GraphQLObjectType({
   name: 'RegiaoType',
   description: '....',
   fields: () => ({
-    id: { type: GraphQLID },
+    id: { type: GraphQLInt },
     nome_regiao: { type: GraphQLString },
     uf: { type: GraphQLInt },
   }),

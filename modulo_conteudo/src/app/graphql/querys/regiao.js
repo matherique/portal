@@ -8,10 +8,10 @@ export default {
   regiao: {
     type: RegiaoType,
     args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-    resolve: RegiaoController.getOne,
+    resolve: (_, { id }) => RegiaoController.getOne(id),
   },
   regioes: {
     type: new GraphQLList(RegiaoType),
-    resolve: RegiaoController.getAll,
+    resolve: () => RegiaoController.getAll(),
   },
 };
