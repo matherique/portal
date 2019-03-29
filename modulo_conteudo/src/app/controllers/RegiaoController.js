@@ -7,7 +7,7 @@ class RegiaoController {
   }
 
   async getOne(id) {
-    const result = await Regiao.findOne({ id });
+    const result = await Regiao.findOne({ where: { id } });
     return result;
   }
 
@@ -19,7 +19,6 @@ class RegiaoController {
   async update(dados) {
     const { id } = dados;
     const result = await Regiao.update({ ...dados }, { where: { id } });
-
     if (result[0] === 0)
       return {
         ok: false,
@@ -28,7 +27,7 @@ class RegiaoController {
         },
       };
 
-    return { response: { ok: true } };
+    return { ok: true };
   }
 
   async delete(id) {
