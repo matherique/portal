@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon -r esm src/server.js",
     "dev": "GRAPHIQL=1 nodemon -r esm src/server.js",
-    "test": "node_modules/.bin/jest --detectOpenHandles --forceExit"
+    "test": "NODE_ENV=test node_modules/.bin/jest --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",
