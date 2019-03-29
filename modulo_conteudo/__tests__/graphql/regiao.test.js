@@ -32,7 +32,7 @@ describe("GraphQL 'Regiao' ", () => {
           id
           nome_regiao
           uf
-        }
+        }   
       }
     `;
     const regiaoDados = {
