@@ -1,13 +1,11 @@
-// const truncate = require('../utils/truncate');
-// const { graphqlTest } = require('../utils/graphqltester');
-
-import { graphqlTest } from '../utils/graphqltester';
-import { truncate, singTestDatabase } from '../utils/truncate';
+import { graphqlTestMutation, graphqlTestQuery } from '../utils/graphqltester';
+import { truncate, singTestDatabase } from '../utils/database';
 
 describe("GraphQL 'Regiao' ", () => {
   beforeAll(async () => {
     await singTestDatabase();
   });
+
   beforeEach(async () => {
     await truncate();
     const mutation = `
@@ -25,7 +23,7 @@ describe("GraphQL 'Regiao' ", () => {
       uf: 1,
     };
 
-    await graphqlTest(mutation, regiaoDados);
+    await graphqlTestMutation(mutation, regiaoDados);
   });
 
   it("should return a list of 'Regiao", async () => {
@@ -43,7 +41,7 @@ describe("GraphQL 'Regiao' ", () => {
       nome_regiao: 'regiao teste',
       uf: 1,
     };
-    const registerResponse = await graphqlTest(query, regiaoDados);
+    const registerResponse = await graphqlTestQuery(query, regiaoDados);
 
     expect(registerResponse).toEqual({
       data: {
@@ -67,11 +65,11 @@ describe("GraphQL 'Regiao' ", () => {
       nome_regiao: 'regiao teste',
       uf: 1,
     };
-    const registerResponse = await graphqlTest(mutation, regiaoDados);
+    const registerResponse = await graphqlTestMutation(mutation, regiaoDados);
 
     expect(registerResponse).toEqual({
       data: {
-        createRegiao: { ...regiaoDados },
+        createRegiao: regiaoDados,
       },
     });
   });
