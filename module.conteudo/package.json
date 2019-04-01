@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -r esm src/server.js",
-    "dev": "GRAPHIQL=1 nodemon -r esm src/server.js",
+    "start": "NODE_ENV=production nodemon -r esm src/server.js",
+    "dev": "NODE_ENV=development GRAPHIQL=1 nodemon -r esm src/server.js",
     "test": "NODE_ENV=test node_modules/.bin/jest --detectOpenHandles --forceExit"
   },
   "keywords": [],

@@ -1,5 +1,5 @@
 import { graphqlTest } from '../utils/graphqltester';
-import { truncate, singTestDatabase } from '../utils/database';
+import { truncate } from '../utils/database';
 
 describe("GraphQL 'Regiao' ", () => {
   beforeEach(async () => {
@@ -39,8 +39,8 @@ describe("GraphQL 'Regiao' ", () => {
     };
     const registerResponse = await graphqlTest(query, regiaoDados);
 
-    expect(registerResponse).toEqual({
-      data: {
+    expect(registerResponse).toMatchObject({
+      dados: {
         regioes: [regiaoDados],
       },
     });
@@ -61,12 +61,10 @@ describe("GraphQL 'Regiao' ", () => {
       nome_regiao: 'regiao teste',
       uf: 1,
     };
-    const registerResponse = await graphqlTest(query, regiaoDados);
+    const { dados } = await graphqlTest(query, regiaoDados);
 
-    expect(registerResponse).toEqual({
-      data: {
-        regiao: regiaoDados,
-      },
+    expect(dados).toMatchObject({
+      regiao: regiaoDados,
     });
   });
 
@@ -83,16 +81,14 @@ describe("GraphQL 'Regiao' ", () => {
     const regiaoDados = {
       id: 2,
     };
-    const registerResponse = await graphqlTest(query, regiaoDados);
+    const { dados } = await graphqlTest(query, regiaoDados);
 
-    expect(registerResponse).toEqual({
-      data: {
-        regiao: null,
-      },
+    expect(dados).toMatchObject({
+      regiao: null,
     });
   });
 
-  it("should create a 'Regiao' and return a created data", async () => {
+  it("should create a 'Regiao'", async () => {
     const mutation = `
       mutation createRegiao($id: ID! $nome_regiao: String!, $uf: Int!) {
         createRegiao(id: $id, nome_regiao: $nome_regiao, uf: $uf) {
@@ -107,12 +103,10 @@ describe("GraphQL 'Regiao' ", () => {
       nome_regiao: 'regiao teste',
       uf: 1,
     };
-    const registerResponse = await graphqlTest(mutation, regiaoDados);
+    const { dados } = await graphqlTest(mutation, regiaoDados);
 
-    expect(registerResponse).toEqual({
-      data: {
-        createRegiao: regiaoDados,
-      },
+    expect(dados).toMatchObject({
+      createRegiao: regiaoDados,
     });
   });
 
@@ -132,26 +126,21 @@ describe("GraphQL 'Regiao' ", () => {
       nome_regiao: 'regiao teste 2',
       uf: 2,
     };
-    const registerResponse = await graphqlTest(mutation, regiaoDados);
+    const { dados } = await graphqlTest(mutation, regiaoDados);
 
-    expect(registerResponse).toEqual({
-      data: {
-        updateRegiao: {
-          ok: true,
-          error: null,
-        },
+    expect(dados).toMatchObject({
+      updateRegiao: {
+        ok: true,
+        error: null,
       },
     });
   });
 
-  it("should update a 'Regiao' and return response ok false and a message", async () => {
+  it("should update a 'Regiao' and return response ok false", async () => {
     const mutation = `
       mutation updateRegiao($id: ID! $nome_regiao: String!, $uf: Int!) {
         updateRegiao(id: $id, nome_regiao: $nome_regiao, uf: $uf) {
           ok
-          error {
-            message
-          }
         }   
       }
     `;
@@ -160,16 +149,51 @@ describe("GraphQL 'Regiao' ", () => {
       nome_regiao: 'regiao teste',
       uf: 1,
     };
-    const registerResponse = await graphqlTest(mutation, regiaoDados);
+    const { dados } = await graphqlTest(mutation, regiaoDados);
 
-    expect(registerResponse).toEqual({
-      data: {
-        updateRegiao: {
-          ok: false,
-          error: {
-            message: `Cannot update regiao with id ${regiaoDados.id}`,
-          },
-        },
+    expect(dados).toMatchObject({
+      updateRegiao: {
+        ok: false,
+      },
+    });
+  });
+
+  it("should delete a 'Regiao' and return response ok true", async () => {
+    const mutation = `
+      mutation deleteRegiao($id: ID!) {
+        deleteRegiao(id: $id) {
+          ok
+          error { 
+            message
+          }
+        }   
+      }
+    `;
+    const regiaoDados = { id: 1 };
+    const { dados } = await graphqlTest(mutation, regiaoDados);
+
+    expect(dados).toMatchObject({
+      deleteRegiao: {
+        ok: true,
+        error: null,
+      },
+    });
+  });
+
+  it("should not delete a 'Regiao' if id is invalid", async () => {
+    const mutation = `
+      mutation deleteRegiao($id: ID!) {
+        deleteRegiao(id: $id) {
+          ok
+        }   
+      }
+    `;
+    const regiaoDados = { id: 2 };
+    const { dados } = await graphqlTest(mutation, regiaoDados);
+
+    expect(dados).toMatchObject({
+      deleteRegiao: {
+        ok: false,
       },
     });
   });
