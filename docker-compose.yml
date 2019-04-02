@@ -2,12 +2,11 @@ version: '3'
 services:
   module.conteudo:
     build: 
-      dockerfile: ./service.conteudo/dev.dockerfile
+      dockerfile: ./module.conteudo/dev.dockerfile
       context: .
     volumes:
       - ./module.conteudo:/usr/src/module.conteudo
     ports:
-      - 7001:5000
+      - 7001:5001
     environment:
       NODE_ENV: development
-    env_file:
