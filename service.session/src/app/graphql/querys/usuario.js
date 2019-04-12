@@ -1,13 +1,15 @@
-import { GraphQLID, GraphQLNonNull } from 'graphql';
+import { GraphQLString, GraphQLNonNull } from 'graphql';
 
 import UsuarioType from '../types/usuario';
 
-import UsuarioController from '../../controllers/UsuarioController';
+import SessionController from '../../controllers/SessionController';
 
 export default {
-  usuario: {
+  me: {
     type: UsuarioType,
-    args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-    resolve: (_, { id }) => UsuarioController.getOne(id),
+    args: {
+      token: { type: new GraphQLNonNull(GraphQLString) },
+    },
+    resolve: (_, { token }) => SessionController.getUserByToken(token),
   },
 };

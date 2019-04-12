@@ -1,20 +1,21 @@
-import { GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLString, GraphQLNonNull, GraphQLBoolean } from 'graphql';
 
-import UsuarioController from '../../controllers/UsuarioController';
-import ResponseType from '../types/response';
-import UsuarioType from '../types/usuario';
+import SessionController from '../../controllers/SessionController';
 
 export default {
-  createUsuario: {
-    type: UsuarioType,
+  login: {
+    type: GraphQLString,
     args: {
-      id: { type: GraphQLID },
-      nome: { type:  new GraphQLNonNull(GraphQLString)},
-      email: { type:  new GraphQLNonNull(GraphQLString)},
-      usuario: { type:  new GraphQLNonNull(GraphQLString)},
-      senha: { type:  new GraphQLNonNull(GraphQLString)},
-    }, 
-    resolve: (_, args) => UsuarioController.create({ ...args }),
-  } 
-}
- 
+      email: { type: new GraphQLNonNull(GraphQLString) },
+      senha: { type: new GraphQLNonNull(GraphQLString) },
+    },
+    resolve: (_, args) => SessionController.login({ ...args }),
+  },
+  validate: {
+    type: GraphQLBoolean,
+    args: {
+      token: { type: new GraphQLNonNull(GraphQLString) },
+    },
+    resolve: (_, { token }) => SessionController.validate(token),
+  },
+};

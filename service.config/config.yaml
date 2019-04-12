@@ -2,11 +2,12 @@ base:
   apiGateway:
     host: http://service.apigateway.com:5001 
   redis:  
-    host: 1923123
-    port: 1231241
+    host: 
+    port: 
   databsase:
-
 
 module.conteudo:
   config1 : seila 
-   
+
+service.serssion: 
+  secret: paunocudocapado
