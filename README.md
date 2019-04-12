@@ -7,3 +7,8 @@
 
 ### Tests
 - Testes no NodeJS aplicando TDD com Jest [link](https://www.youtube.com/watch?v=2G_mWfG0DZE)
+
+
+### Todo
+- Fazer docker-compose funcionar com todos os modulos e services
+- Configurar teste no docker

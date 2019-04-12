@@ -1,12 +1,27 @@
 version: '3'
 services:
-  module.conteudo:
-    build: 
-      dockerfile: ./module.conteudo/dev.dockerfile
-      context: .
+  database: 
+    image:  mysql
     volumes:
-      - ./module.conteudo:/usr/src/module.conteudo
+      - ./database.data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+    ports:
+      - 3334:3306
+
+  service.session:
+    build: 
+      context: ./service.session
+      dockerfile: dev.dockerfile
+    volumes:
+      - ./service.session:/usr/src/
     ports:
       - 7001:5001
+    depends_on:  
+      - database
     environment:
       NODE_ENV: development
+      PORT: 5001
+      GRAPHIQL: 1
+    command: npm start

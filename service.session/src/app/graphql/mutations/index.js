@@ -1,1 +1,5 @@
-export default {};
+import Usuario from './usuario';
+
+export default {
+  ...Usuario,
+};

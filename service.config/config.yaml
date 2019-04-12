@@ -1,0 +1,12 @@
+base:
+  apiGateway:
+    host: http://service.apigateway.com:5001 
+  redis:  
+    host: 1923123
+    port: 1231241
+  databsase:
+
+
+module.conteudo:
+  config1 : seila 
+   

@@ -14,4 +14,5 @@ const mutation = new GraphQLObjectType({
   fields: () => Mutations,
 });
 
+
 export default new GraphQLSchema({ query, mutation });
