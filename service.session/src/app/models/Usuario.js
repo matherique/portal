@@ -5,7 +5,7 @@ export default (sequelize, DataType) => {
       nome: DataType.STRING(100),
       email: DataType.STRING(150),
       usuario: DataType.STRING(16),
-      senha: DataType.STRING(16),
+      senha: DataType.STRING(60),
     },
     { tableName: 'usuario' }
   );

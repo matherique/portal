@@ -1,11 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import graphqlHttp from 'express-graphql';
-import { renderGraphiQL } from 'express-graphql/dist/renderGraphiQL';
+import axios from 'axios';
 import routes from './routes';
 import schema from './app/graphql';
-
-const SECRET = 'vaisefudercapado';
 
 class AppController {
   constructor() {
@@ -26,14 +24,10 @@ class AppController {
     //   }
     //   next();
     // });
-
     this.express.use(
       graphqlHttp(req => ({
         schema,
         graphiql: !!process.env.GRAPHIQL || false,
-        // context: {
-        //   usuario: req.usuario,
-        // },
       }))
     );
   }

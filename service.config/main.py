@@ -21,6 +21,13 @@ def home():
     data = getconfig()
     return jsonify(data)
 
+@app.route("/read/<service>")
+def getservicedata(service):
+    data = getconfig()
+    if service not in data:
+        return jsonify({})
+
+    return jsonify(data[service])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5002)

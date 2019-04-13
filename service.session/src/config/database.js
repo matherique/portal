@@ -3,7 +3,7 @@ export default {
     username: 'root',
     password: null,
     database: 'portal_test',
-    host: 'database',
+    host: '127.0.0.1',
     dialect: 'mysql',
     logging: false,
     define: {

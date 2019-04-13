@@ -1,41 +1,54 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import axios from 'axios';
 import { Usuario } from '../models';
 
-const SECRET = 'vaisefudercapadodemerda';
+let SECRET = null;
+
+axios
+  .get('http://localhost:5002/read/service.session')
+  .then(resp => (SECRET = resp.data.secret));
 
 class SessionController {
   async login({ email, senha }) {
-    const user = await Usuario.findOne({
+    const usuario = await Usuario.findOne({
       where: { email },
-      attributes: ['id', 'email'],
     });
-    if (!user) throw new Error('No user with that email');
-    // TODO: validar senha
+    if (!usuario) throw new Error('No user with that email');
+
+    const valid = await bcrypt.compare(senha, usuario.senha);
+    if (!valid) throw new Error('incorret password');
     const token = jwt.sign(
       {
-        usuario: user,
+        usuario: { id: usuario.id, email: usuario.email },
       },
       SECRET,
       {
         algorithm: 'HS512',
-        expiresIn: '1y',
+        expiresIn: '10d',
       }
     );
     return token;
   }
 
   async validate(token) {
-    const { user } = await jwt.verify(token, SECRET);
-    if (!user) throw new Error('Invalid TOKEN');
+    const { usuario } = await jwt.verify(token, SECRET);
+    if (!usuario) throw new Error('Invalid TOKEN');
     return true;
   }
 
   async getUserByToken(token) {
-    const { user } = await jwt.verify(token, SECRET);
-    if (!user) throw new Error('Invalid TOKEN');
-    return user;
+    const { usuario } = await jwt.verify(token, SECRET);
+    if (!usuario) throw new Error('Invalid TOKEN');
+    return usuario;
   }
+
+  // async create(dados) {
+  //   const hashed = await bcrypt.hash(dados.senha, 12);
+  //   console.log({ ...dados, senha: hashed });
+  //   const usuario = await Usuario.create({ ...dados, senha: hashed });
+  //   return usuario;
+  // }
 }
 
-const usuario = new SessionController();
-export default usuario;
+export default new SessionController();
