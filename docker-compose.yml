@@ -13,29 +13,29 @@ services:
 
   service.config:
     build:
-      context: ./service.config
+      context: ./service.config/.
       dockerfile: dev.dockerfile
     volumes:
-      - ./service.config:/usr/src/app/
+      - ./service.config/.:/usr/src/app/
     ports:
-      - ${EXPOSE_CONFIG_PORT}:${DOCKER_CONFIG_PORT}
+      - 7000:5000
     environment:
-      PORT: ${DOCKER_CONFIG_PORT}
-    command: python main.py
+      PORT: 5000
+    command: python3 main.py
     
   service.session:
     build:
-      context: ./service.session
+      context: ./service.session/.
       dockerfile: dev.dockerfile
     volumes:
-      - ./service.session:/usr/src/app/
+      - ./service.session/.:/usr/src/app/
     ports:
-      - ${EXPOSE_SESSION_PORT}:${DOCKER_SESSION_PORT}
-    depends_on:  
+      - 7001:5001 
+    depends_on:
       # - database
       - service.config
     environment:
       NODE_ENV: development
-      PORT: ${DOCKER_SESSION_PORT}
+      PORT: 5001
       GRAPHIQL: 1
     command: npm start 

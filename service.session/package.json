@@ -15,7 +15,7 @@
     "@types/jsonwebtoken": "^8.3.2",
     "axios": "^0.18.0",
     "babel-preset-env": "^1.7.0",
-    "bcrypt": "^3.0.5",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "esm": "^3.2.18",
     "express": "^4.16.4",

@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import axios from 'axios';
 import { Usuario } from '../models';
 
-axios.get('http://session.config/read/service.session').then(resp => {
+axios.get('http://service.config:5000/read/service.session').then(resp => {
   Usuario.secret = resp.data.secret;
 });
 
