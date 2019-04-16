@@ -1,7 +1,12 @@
-import { GraphQLString, GraphQLNonNull, GraphQLBoolean } from 'graphql';
+import {
+  GraphQLID,
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLBoolean,
+} from 'graphql';
 
 import SessionController from '../../controllers/SessionController';
-// import UsuarioType from '../types/usuario';
+import UsuarioType from '../types/usuario';
 
 export default {
   login: {
@@ -19,14 +24,15 @@ export default {
     },
     resolve: (_, { token }) => SessionController.validate(token),
   },
-  // createUsuario: {
-  //   type: UsuarioType,
-  //   args: {
-  //     nome: { type: new GraphQLNonNull(GraphQLString) },
-  //     email: { type: new GraphQLNonNull(GraphQLString) },
-  //     usuario: { type: new GraphQLNonNull(GraphQLString) },
-  //     senha: { type: new GraphQLNonNull(GraphQLString) },
-  //   },
-  //   resolve: (_, args) => SessionController.create({ ...args }),
-  // },
+  createUsuario: {
+    type: UsuarioType,
+    args: {
+      id: { type: GraphQLID },
+      nome: { type: new GraphQLNonNull(GraphQLString) },
+      email: { type: new GraphQLNonNull(GraphQLString) },
+      usuario: { type: new GraphQLNonNull(GraphQLString) },
+      senha: { type: new GraphQLNonNull(GraphQLString) },
+    },
+    resolve: (_, args) => SessionController.create({ ...args }),
+  },
 };

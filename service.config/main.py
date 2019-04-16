@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from ruamel.yaml import YAML
 from flask_cors import CORS
 import json
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -21,6 +22,7 @@ def home():
     data = getconfig()
     return jsonify(data)
 
+
 @app.route("/read/<service>")
 def getservicedata(service):
     data = getconfig()
@@ -29,5 +31,7 @@ def getservicedata(service):
 
     return jsonify(data[service])
 
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    PORT = os.environ['PORT'] if 'PORT' in os.environ else 5002
+    app.run(debug=True, port=PORT)

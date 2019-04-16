@@ -1,8 +1,8 @@
-FROM node:11.13.0-alpine
+FROM node:10.15
 
-WORKDIR /usr/src/service.serssion
+WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json ./
 
 RUN npm install
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 5001
 
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "start"]
