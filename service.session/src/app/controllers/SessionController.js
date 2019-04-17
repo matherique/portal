@@ -38,7 +38,8 @@ class SessionController {
   async getUserByToken(token) {
     const { usuario } = await jwt.verify(token, Usuario.secret);
     if (!usuario) throw new Error('Invalid TOKEN');
-    return usuario;
+    const user = await Usuario.findOne({ where: { id: usuario.id } });
+    return user;
   }
 
   async create(dados) {

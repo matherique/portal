@@ -1,9 +1,9 @@
 export default {
   test: {
     username: 'root',
-    password: null,
+    password: 'root',
     database: 'portal_test',
-    host: '127.0.0.1',
+    host: 'database',
     dialect: 'mysql',
     logging: false,
     define: {
@@ -15,9 +15,9 @@ export default {
   },
   development: {
     username: 'root',
-    password: null,
+    password: 'root',
     database: 'portal_development',
-    host: '127.0.0.1',
+    host: 'database',
     dialect: 'mysql',
     logging: false,
     define: {
