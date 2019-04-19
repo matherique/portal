@@ -10,5 +10,4 @@
 
 
 ### Todo
-- Fazer docker-compose funcionar com todos os modulos e services
-- Configurar teste no docker
+- [x] Fazer docker-compose funcionar com todos os modulos e services

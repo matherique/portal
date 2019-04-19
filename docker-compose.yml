@@ -18,9 +18,9 @@ services:
     volumes:
       - ./service.config/.:/usr/src/app/
     ports:
-      - 7000:5000
+      - ${DOCKER_CONFIG_PORT}
     environment:
-      PORT: 5000
+      PORT: ${DOCKER_CONFIG_PORT}
     command: python3 main.py
     
   service.session:
@@ -30,12 +30,12 @@ services:
     volumes:
       - ./service.session/.:/usr/src/app/
     ports:
-      - 7001:5001 
+      - ${EXPOSE_SESSION_PORT}:${DOCKER_SESSION_PORT}
     depends_on:
       - database
       - service.config
     environment:
       NODE_ENV: development
-      PORT: 5001
+      PORT: ${DOCKER_SESSION_PORT}
       GRAPHIQL: 1
     command: npm start 
